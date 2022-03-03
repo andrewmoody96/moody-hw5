@@ -1,4 +1,4 @@
-// Display current day using Moment.js when app is loaded
+// DISPLAY CURRENT DAY W/ MOMENT.JS WHEN PAGE IS LOADED
 // ----------------------
 
 // 2. Use Moment.js and use correct format to display current day.
@@ -15,10 +15,7 @@ displayDay();
 
 
 
-
-
-
-// Display timeblocks for biz hours (9a-5p). One block per hour
+// DISPLAY TIMEBLOCKS FOR BIZ HOURS (9A-5P). 1 BLOCK PER HOUR
 // ----------------------
 // 1. Create object holding a timeblock for each hour
 // 2. Use object properties to ... 
@@ -44,4 +41,5 @@ displayDay();
 
 // Style timeblocks based on past, present, or future.
 // ----------------------
+// var currentTime = moment().format("LTS");
 // 1. 
