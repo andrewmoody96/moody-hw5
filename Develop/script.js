@@ -4,6 +4,7 @@
 // 2. Use Moment.js and use correct format to display current day.
 var currentDay = moment().format("dddd");
 var dayContainer = $('#currentDayInWeek');
+var container = $('#blocks');
 
 // 1. Create function that runs on page load.
 function displayDay(){
@@ -14,11 +15,31 @@ function displayDay(){
 displayDay();
 
 
-
 // DISPLAY TIMEBLOCKS FOR BIZ HOURS (9A-5P). 1 BLOCK PER HOUR
 // ----------------------
-// 1. Create object holding a timeblock for each hour
-// 2. Use object properties to ... 
+// 
+
+function createBlocks(){
+    // 1. Loop to create timeblocks w/ class "block".
+    console.log("Hey it started.")
+    var hours = ["9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4PM"];
+    for (var i = 0; i < hours.length; i++) {
+        var blockLabel = $('<label></label>')
+        $(blockLabel).html(hours[i]);
+        var newBlock = $('<div class="block">')
+        $(container).append(blockLabel);
+        $(container).append(newBlock);
+    }
+
+
+    console.log("Hey it worked.")
+};
+
+createBlocks();
+
+
+
+
 
 
 // Clicking timeblock allows for user input of an event
