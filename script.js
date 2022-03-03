@@ -51,7 +51,6 @@ createBlocks();
 
 // CLICKING TIMEBLOCK ALLOWS FOR USER INPUT OF A CALENDAR EVENT
 // ----------------------
-// 1. Add click event to timeblock.
 
 
 function displayModal(){
@@ -62,13 +61,11 @@ function displayModal(){
 };
 
 
+// 1. Add click event to timeblock.
 // 3. On click, display the jQuery modal to collect user inputs.
 $(".block").on("click", function(click){
-  $("#target").click();
-  let target = $(click.target);
-  if (target === target){
-    displayModal();
-  }
+  click.target.stopPropgation;
+  displayModal();
 });
 
 
