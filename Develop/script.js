@@ -51,11 +51,20 @@ createBlocks();
 // CLICKING TIMEBLOCK ALLOWS FOR USER INPUT OF A CALENDAR EVENT
 // ----------------------
 // 1. Add click event to timeblock.
-// 2. Define jQuery modal and provide the required inputs.
-var modal = $(".block").dialog();
-$(".block").dialog("option", "modal", true)
-// 3. On click, display the jQuery modal to collect user inputs.
 
+
+function displayModal(click){
+  console.log("Modal Test");
+  // 2. Define jQuery modal and provide the required inputs.
+  // var modal = $(".block").dialog();
+  // $(".block").dialog("option", "modal", true);
+};
+
+
+// 3. On click, display the jQuery modal to collect user inputs.
+$(".block").on("click", function(){
+  displayModal();
+});
 
 
 
