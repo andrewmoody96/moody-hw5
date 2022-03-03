@@ -32,7 +32,8 @@ function createBlocks() {
   for (var i = 0; i < hours.length; i++) {
     var blockLabel = $("<label></label>");
     $(blockLabel).html(hours[i]);
-    var newBlock = $('<div class="block">');
+    // Creates block w/ ID's set to military time equivalent.
+    var newBlock = $(`<div id="${[i + 9]+":00"}" class="block">`);
     $(container).append(blockLabel);
     $(container).append(newBlock);
     // Applies default styling to new HTML elements.
