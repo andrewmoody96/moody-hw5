@@ -1,15 +1,17 @@
 // Display current day using Moment.js when app is loaded
 // ----------------------
-// 1. Create function that runs on page load.
+
 // 2. Use Moment.js and use correct format to display current day.
-// 3. Inside of this function, append current date to <p id=currentDayInWeek>
+var currentDay = moment().format("dddd");
+var dayContainer = $('#currentDayInWeek');
 
-var currentDay = moment().format();
-
+// 1. Create function that runs on page load.
 function displayDay(){
-    
+    // 3. Inside of this function, add current day to p tag.
+    $(dayContainer).html(`${currentDay}`);
 };
 
+displayDay();
 
 
 
