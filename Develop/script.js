@@ -9,25 +9,25 @@ var container = $("#blocks");
 // 1. Create function that runs on page load.
 function displayDay() {
   // 3. Inside of this function, add current day to p tag.
-  $(dayContainer).html(`${currentDay}`);
+  $(dayContainer).html(`Today is ${currentDay}`);
 }
 
 displayDay();
 
 // DISPLAY TIMEBLOCKS FOR BIZ HOURS (9A-5P). 1 BLOCK PER HOUR
 // ----------------------
+
 function createBlocks() {
   // 1. Loop to create timeblocks w/ class "block".
-  console.log("Hey it started.");
   var hours = [
-    "9 AM",
-    "10 AM",
-    "11 AM",
-    "12 PM",
-    "1 PM",
-    "2 PM",
-    "3 PM",
-    "4PM",
+    "9:00 AM",
+    "10:00 AM",
+    "11:00 AM",
+    "12:00 PM",
+    "1:00 PM",
+    "2:00 PM",
+    "3:00 PM",
+    "4:00 PM",
   ];
   for (var i = 0; i < hours.length; i++) {
     var blockLabel = $("<label></label>");
@@ -43,9 +43,8 @@ function createBlocks() {
       "background-color": "grey",
     });
   }
-
-  console.log("Hey it worked.");
-}
+  console.log("blocks = created");
+};
 
 createBlocks();
 

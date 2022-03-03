@@ -13,6 +13,11 @@ textarea {
   padding: 10px;
 }
 
+/* Figure out how to center just these. bootstrap &or jQuery CSS may be causing this. */
+/* .container {
+  
+} */
+
 .jumbotron {
   text-align: center;
   background-color: transparent;
