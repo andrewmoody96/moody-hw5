@@ -53,17 +53,21 @@ createBlocks();
 // 1. Add click event to timeblock.
 
 
-function displayModal(click){
+function displayModal(){
   console.log("Modal Test");
   // 2. Define jQuery modal and provide the required inputs.
-  // var modal = $(".block").dialog();
-  // $(".block").dialog("option", "modal", true);
+  var modal = $(".block").dialog();
+  $(".block").dialog("option", "modal", true);
 };
 
 
 // 3. On click, display the jQuery modal to collect user inputs.
-$(".block").on("click", function(){
-  displayModal();
+$(".block").on("click", function(click){
+  $("#target").click();
+  let target = $(click.target);
+  if (target === target){
+    displayModal();
+  }
 });
 
 
