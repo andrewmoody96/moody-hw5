@@ -59,6 +59,7 @@ function checkForSaved() {
   console.log("Checking storage for existing schedule.")
   var savedSchedule = JSON.parse(localStorage.getItem("schedule"));
   if (savedSchedule == null) {
+    console.log("No saved schedules. Loading empty schedule.")
     displayNew()
   } else {
     console.log("Loading saved schedule.")
