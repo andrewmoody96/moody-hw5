@@ -14,7 +14,7 @@ function displayDay() {
 // localStorage item name = "Schedule"
 // Need to check localStorage to see if there is a saved schedule already present. Must occur before displaying schedule.
 function checkForSaved() {
-  console.log("Checking storage for schedule.")
+  console.log("Checking storage for existing schedule.")
 };
 
 
@@ -39,9 +39,9 @@ function createBlocks() {
     ]
   };
   
-  for (var i = 0; i < hours.length; i++) {
+  for (var i = 0; i < taskList.taskBlocks.length; i++) {
     var blockLabel = $("<label></label>");
-    $(blockLabel).html(hours[i]);
+    $(blockLabel).html(taskList.taskBlocks[i]);
     // Creates block w/ ID's set to military time equivalent.
     var newBlock = $(`<div id="${[i + 9]+":00"}" class="block">`);
     $(container).append(blockLabel);
