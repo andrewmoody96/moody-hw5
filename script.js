@@ -13,9 +13,7 @@ function displayDay() {
 
 // localStorage item name = "Schedule"
 // Need to check localStorage to see if there is a saved schedule already present. Must occur before displaying schedule.
-function checkForSaved() {
-  console.log("Checking storage for existing schedule.")
-};
+
 
 
 displayDay();
@@ -24,7 +22,7 @@ checkForSaved();
 // DISPLAY TIMEBLOCKS FOR BIZ HOURS (9A-5P). 1 BLOCK PER HOUR
 // ----------------------
 
-function createBlocks() {
+function displayNew() {
   // 1. Loop to create timeblocks w/ class "block".
   taskList = {
     taskBlocks: [
@@ -57,13 +55,18 @@ function createBlocks() {
   console.log("blocks = created");
 };
 
-createBlocks();
+function checkForSaved() {
+  console.log("Checking storage for existing schedule.")
+  var savedSchedule = JSON.parse(localStorage.getItem("schedule"));
+  if (savedSchedule == null) {
+    displayNew()
+  } else {
+    console.log("Loading saved schedule.")
+    displaySaved()
+  }
+};
 
-function saveEvent(event) {
-  event.preventDefault();
-  console.log('Saved');
-  var targetBlock = $(event.currentTarget);
-}
+
 // CLICKING TIMEBLOCK ALLOWS FOR USER INPUT OF A CALENDAR EVENT
 // ----------------------
 
