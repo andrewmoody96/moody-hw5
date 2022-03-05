@@ -55,17 +55,21 @@ createBlocks();
 
 function displayModal(){
   console.log("Modal Test");
-  // 2. Define jQuery modal and provide the required inputs.
-  var modal = $(".block").dialog();
-  $(".block").dialog("option", "modal", true);
+  // 2. Define Boostrap modal and provide the required inputs.
+  var modal = $("#myModal").dialog();
 };
 
 
 // 1. Add click event to timeblock.
 // 3. On click, display the jQuery modal to collect user inputs.
-$(".block").on("click", function(click){
-  click.target.stopPropgation;
-  displayModal();
+$(".container").on("click", "button", function(event){
+  if ($(event.currentTarget).hasClass("saveEventBtn")) {
+    saveEvent(event);
+  }
+
+  if ($(event.currentTarget).hasClass("deleteEventBtn")) {
+    deleteEvent(event);
+  }
 });
 
 
