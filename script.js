@@ -1,34 +1,44 @@
-// DISPLAY CURRENT DAY W/ MOMENT.JS WHEN PAGE IS LOADED
-// ----------------------
-
-// 2. Use Moment.js and use correct format to display current day.
 var currentDay = moment().format("dddd");
 var dayContainer = $("#currentDayInWeek");
-var container = $("#blocks");
+var container = $(".container");
+// empty taskList that gets added to.
+var taskList = {};
 
-// 1. Create function that runs on page load.
+
 function displayDay() {
   // 3. Inside of this function, add current day to p tag.
   $(dayContainer).html(`Today is ${currentDay}`);
 }
 
+
+// localStorage item name = "Schedule"
+// Need to check localStorage to see if there is a saved schedule already present. Must occur before displaying schedule.
+function checkForSaved() {
+  console.log("Checking storage for schedule.")
+};
+
+
 displayDay();
+checkForSaved();
 
 // DISPLAY TIMEBLOCKS FOR BIZ HOURS (9A-5P). 1 BLOCK PER HOUR
 // ----------------------
 
 function createBlocks() {
   // 1. Loop to create timeblocks w/ class "block".
-  var hours = [
-    "9:00 AM",
-    "10:00 AM",
-    "11:00 AM",
-    "12:00 PM",
-    "1:00 PM",
-    "2:00 PM",
-    "3:00 PM",
-    "4:00 PM",
-  ];
+  taskList = {
+    taskBlocks: [
+      {time: "9:00 AM", content:""},
+      {time: "10:00 AM", content:""},
+      {time: "11:00 AM", content:""},
+      {time: "12:00 PM", content:""},
+      {time: "1:00 PM", content:""},
+      {time: "2:00 PM", content:""},
+      {time: "3:00 PM", content:""},
+      {time: "4:00 PM", content:""}
+    ]
+  };
+  
   for (var i = 0; i < hours.length; i++) {
     var blockLabel = $("<label></label>");
     $(blockLabel).html(hours[i]);
@@ -49,15 +59,20 @@ function createBlocks() {
 
 createBlocks();
 
+function saveEvent(event) {
+  event.preventDefault();
+  console.log('Saved');
+  var targetBlock = $(event.currentTarget);
+}
 // CLICKING TIMEBLOCK ALLOWS FOR USER INPUT OF A CALENDAR EVENT
 // ----------------------
 
 
-function displayModal(){
-  console.log("Modal Test");
-  // 2. Define Boostrap modal and provide the required inputs.
-  var modal = $("#myModal").dialog();
-};
+// function displayModal(){
+//   console.log("Modal Test");
+//   // 2. Define Boostrap modal and provide the required inputs.
+//   var modal = $("#myModal").dialog();
+// };
 
 
 // 1. Add click event to timeblock.
@@ -71,6 +86,27 @@ $(".container").on("click", "button", function(event){
     deleteEvent(event);
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
