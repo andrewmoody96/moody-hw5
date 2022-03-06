@@ -14,7 +14,7 @@ function displayDay() {
 // ----------------------
 
 function displayNew() {
-  // 1. Loop to create timeblocks w/ class "block".
+  $(".container").empty();
   taskList = {
     taskBlocks: [
       { time: "9:00 AM", content: "" },
@@ -28,29 +28,34 @@ function displayNew() {
     ],
   };
 
-  for (var i = 0; i < taskList.taskBlocks.length; i++) {
-    var blockLabel = $("<label></label>");
-    $(blockLabel).html(taskList.taskBlocks[i].time);
-    // Creates block w/ ID's set to the equivalent military time.
-    // var newBlock = $(`<div id="${[i + 9]+":00"}" class="block">`);
-    taskList.taskBlocks.forEach((taskBlock) => {
-      var hour = taskBlock.time;
-      var blockContainer = $("<div>")
-        .addClass("time-row")
-        .attr("id", taskBlock.time)
-        .appendTo(container);
-    });
+  taskList.taskBlocks.forEach((taskBlock) => {
+    var hour = taskBlock.time;
+    var blockContainer = $("<div>")
+      .addClass("time-row")
+      .attr("id", taskBlock.time)
+      .appendTo(container);
+    $("<div>")
+      .addClass(
+        "hour d-flex justify-content-center align-items-center text-center col-1"
+      )
+      .text(hour)
+      .appendTo(blockContainer);
+    var deleteBtn = $("<button>")
+      .addClass("deleteButton")
+      .appendTo(blockContainer);
+  });
 
-    $(container).append(blockLabel);
-    $(container).append(newBlock);
-    // Applies default styling to new HTML elements.
-    $(".block").css({
-      height: "50px",
-      width: "85vw",
-      margin: "10px 10px",
-      "background-color": "grey",
-    });
-  }
+  // REPLACING WITH A TEXT SECTION INSIDE OF MY BLOCKS THAT SHOWS THE TIME
+  // $(container).append(blockLabel);
+  // $(container).append(newBlock);
+  // // Applies default styling to new HTML elements.
+  // $(".block").css({
+  //   height: "50px",
+  //   width: "85vw",
+  //   margin: "10px 10px",
+  //   "background-color": "grey",
+  // });
+  // }
   console.log("blocks = created");
 }
 
@@ -83,11 +88,11 @@ checkForSaved();
 // 1. Add click event to timeblock.
 // 3. On click, display the jQuery modal to collect user inputs.
 $(".container").on("click", "button", function (event) {
-  if ($(event.currentTarget).hasClass("saveEventBtn")) {
+  if ($(event.currentTarget).hasClass("saveButton")) {
     saveEvent(event);
   }
 
-  if ($(event.currentTarget).hasClass("deleteEventBtn")) {
+  if ($(event.currentTarget).hasClass("deleteButton")) {
     deleteEvent(event);
   }
 });
