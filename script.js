@@ -2,8 +2,18 @@ var currentDay = moment().format("dddd");
 var dayContainer = $("#currentDayInWeek");
 var container = $(".container");
 var blocks = $(".block");
-// empty taskList that gets added to.
-var taskList = {};
+taskList = {
+  taskBlocks: [
+    { time: "9:00 AM", content: "" },
+    { time: "10:00 AM", content: "" },
+    { time: "11:00 AM", content: "" },
+    { time: "12:00 PM", content: "" },
+    { time: "1:00 PM", content: "" },
+    { time: "2:00 PM", content: "" },
+    { time: "3:00 PM", content: "" },
+    { time: "4:00 PM", content: "" },
+  ],
+};
 
 function displayDay() {
   // 3. Inside of this function, add current day to p tag.
@@ -13,18 +23,18 @@ function displayDay() {
 function displayNew() {
   $(".container").empty();
 
-  taskList = {
-    taskBlocks: [
-      { time: "9:00 AM", content: "" },
-      { time: "10:00 AM", content: "" },
-      { time: "11:00 AM", content: "" },
-      { time: "12:00 PM", content: "" },
-      { time: "1:00 PM", content: "" },
-      { time: "2:00 PM", content: "" },
-      { time: "3:00 PM", content: "" },
-      { time: "4:00 PM", content: "" },
-    ],
-  };
+  // taskList = {
+  //   taskBlocks: [
+  //     { time: "9:00 AM", content: "" },
+  //     { time: "10:00 AM", content: "" },
+  //     { time: "11:00 AM", content: "" },
+  //     { time: "12:00 PM", content: "" },
+  //     { time: "1:00 PM", content: "" },
+  //     { time: "2:00 PM", content: "" },
+  //     { time: "3:00 PM", content: "" },
+  //     { time: "4:00 PM", content: "" },
+  //   ],
+  // };
 
   taskList.taskBlocks.forEach((taskBlock) => {
     var hour = taskBlock.time;
@@ -119,35 +129,58 @@ function displayModal() {
           <input id="taskInput" placeholder="Add event details here..."></input>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary saveButton">Save changes</button>
+          <button type="button" id="saveButton" class="btn btn-primary saveBtn">Save changes</button>
         </div>
       </div>
     </div>
   </div>`);
 
-  $(modal).modal();
+  $(modal).modal();  
 
-  // 2. Define Boostrap modal and provide the required inputs.
-  
+  $("#saveButton").on("click", function(save) {
+    console.log("Saving Task...");
+    save.stopPropagation();
+    saveTask(save);
+    $(modal).modal('toggle')
+
+  });
 };
+
+function saveTask(e) {
+  e.preventDefault();
+  console.log("Task Saved");
+  var clickedBlock = $(e.currentTarget);
+  taskList.taskBlocks.forEach((taskBlock) => {
+      console.log("Cool")
+      taskBlock.content = clickedBlock.siblings("textarea").val();
+    });
+};
+
+
+
+
+
+
+
+
 
 // Functions running on load
 displayDay();
 checkForSaved();
 
 // 1. Add click event to timeblock.
-$(".timeBlock").on("click", function (addTask) {
+$(".timeBlock").on("click", function(addTask) {
   displayModal(addTask);
 });
 
-$(".saveButton").on("click", function (save) {
-  console.log("Saving Task...");
-  save.stopPropagation();
-  // saveTask(save);
-});
+// $("#saveButton").on("click", function(save) {
+//   console.log("Saving Task...");
+//   save.stopPropagation();
+//   saveTask(save);
+// });
 
 // Click Event to Delete Tasks
-$(".deleteButton").on("click", function (del) {
+$(".deleteButton").on("click", function(del) {
   console.log("Deleting Task...");
   del.stopPropagation();
   // deleteEvent(del);
