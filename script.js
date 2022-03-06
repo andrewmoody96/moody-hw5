@@ -105,7 +105,7 @@ function checkForSaved() {
 }
 
 function saveTask(e) {
-  e.preventDefault();
+  e.stopPropagation();
   // Print to UI
   userinput = $("#taskInput").val();
   list = $("div.activeBlock").find("ul")
@@ -114,7 +114,7 @@ function saveTask(e) {
   $(listItem).appendTo(list);
   $("#taskModal").modal("toggle");
   console.log("Task Saved");
-  userinput = $("#taskInput").val(null);
+  // return(userinput);
 };
 
 
@@ -143,12 +143,7 @@ function displayModal() {
   $(modal).appendTo(".container");
   $(modal).modal();
 
-  $(".container").on("click", "#saveButton", function (save) {
-    // save.preventDefault();
-    // save.stopPropagation();
-    console.log("Saving Task...");
-    saveTask(save);
-  });
+  
 
   // // Save to local storage
   // taskList.taskBlocks.forEach((taskBlock) => {
@@ -184,6 +179,14 @@ $(".deleteButton").on("click", function (del) {
   del.stopPropagation();
   // deleteEvent(del);
 });
+
+$(".container").on("click", "#saveButton", function (save) {
+  // save.preventDefault();
+  save.stopPropagation();
+  console.log("Saving Task...");
+  saveTask(save);
+});
+
 
 // If app is refreshed, these events remain in place
 // ----------------------
