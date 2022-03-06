@@ -2,6 +2,8 @@ var currentDay = moment().format("dddd");
 var dayContainer = $("#currentDayInWeek");
 var container = $(".container");
 var blocks = $(".block");
+var list = $(".list");
+var userinput = null;
 taskList = {
   taskBlocks: [
     { time: "9:00 AM", content: "" },
@@ -105,13 +107,16 @@ function checkForSaved() {
 function saveTask(e) {
   e.preventDefault();
   // Print to UI
-  var userinput = $("#taskInput").val();
+  userinput = $("#taskInput").val();
+  list = $("div.activeBlock").find("ul")
   var listItem = $("<li>");
   $(listItem).text(userinput);
-  $(listItem).appendTo(".activeBlock");
+  $(listItem).appendTo(list);
   $("#taskModal").modal("toggle");
   console.log("Task Saved");
+  userinput = $("#taskInput").val(null);
 };
+
 
 
 function displayModal() {
@@ -134,10 +139,11 @@ function displayModal() {
       </div>
     </div>
   </div>`);
-
+  
+  $(modal).appendTo(".container");
   $(modal).modal();
 
-  $("#saveButton").on("click", function (save) {
+  $(".container").on("click", "#saveButton", function (save) {
     // save.preventDefault();
     // save.stopPropagation();
     console.log("Saving Task...");
