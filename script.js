@@ -40,7 +40,6 @@ function displayNew() {
       .addClass("col-9 list")
       .appendTo(blockContainer);
 
-
     var deleteBtn = $("<button>")
       .addClass("deleteButton")
       .appendTo(blockContainer);
@@ -124,52 +123,45 @@ function displayModal() {
     </div>
   </div>`);
 
-  $(modal).modal();  
+  $(modal).modal();
 
-  $("#saveButton").on("click", function(save) {
+  var clickedBlock = null;
+
+  $("#saveButton").on("click", function (save) {
     console.log("Saving Task...");
     save.stopPropagation();
+    clickedBlock = $(save.currentTarget);
+    $(clickedBlock).addClass("activeBlock");
     saveTask(save);
   });
 
   function saveTask(e) {
     e.preventDefault();
-    var clickedBlock = $(e.currentTarget);
     // Print to UI
     var userinput = $("#taskInput").val();
-    var li = $(`<li>${userinput}</li>`)
-    $(li).appendTo(".list").currentTarget;
+    var listItem = $("<li>");
+    $(listItem).text(userinput);
+    $(listItem).appendTo(".activeBlock");
 
-    // Ask a question about why the ; breaks the click event on line 154.
-    $(modal).modal('toggle')
-    $(clickedBlock).val(userinput);
+    $(modal).modal("toggle");
     console.log("Task Saved");
-    
-  
-    // Save to local storage
-    taskList.taskBlocks.forEach((taskBlock) => {
-      taskBlock.content = clickedBlock.siblings("textarea").val();
-      console.log(`${taskBlock.content}`)
-      });
-      localStorage.setItem("Tasks", JSON.stringify(taskList));
-  };
-};
+    // $(clickedBlock).removeClass("activeBlock");
 
-
-
-
-
-
-
-
-
+    // // Save to local storage
+    // taskList.taskBlocks.forEach((taskBlock) => {
+    //   taskBlock.content = clickedBlock.siblings("li").val();
+    //   console.log(`${listItem.content}`)
+    //   });
+    //   localStorage.setItem("Tasks", JSON.stringify(taskList));
+  }
+}
 
 // Functions running on load
 displayDay();
 checkForSaved();
 
 // 1. Add click event to timeblock.
-$(".timeBlock").on("click", function(addTask) {
+$(".timeBlock").on("click", function (addTask) {
   displayModal(addTask);
 });
 
@@ -180,7 +172,7 @@ $(".timeBlock").on("click", function(addTask) {
 // });
 
 // Click Event to Delete Tasks
-$(".deleteButton").on("click", function(del) {
+$(".deleteButton").on("click", function (del) {
   console.log("Deleting Task...");
   del.stopPropagation();
   // deleteEvent(del);
