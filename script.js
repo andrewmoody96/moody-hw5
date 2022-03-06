@@ -1,6 +1,7 @@
 var currentDay = moment().format("dddd");
 var dayContainer = $("#currentDayInWeek");
 var container = $(".container");
+var blocks = $(".block");
 // empty taskList that gets added to.
 var taskList = {};
 
@@ -9,15 +10,6 @@ function displayDay() {
   // 3. Inside of this function, add current day to p tag.
   $(dayContainer).html(`Today is ${currentDay}`);
 }
-
-
-// localStorage item name = "Schedule"
-// Need to check localStorage to see if there is a saved schedule already present. Must occur before displaying schedule.
-
-
-
-displayDay();
-checkForSaved();
 
 // DISPLAY TIMEBLOCKS FOR BIZ HOURS (9A-5P). 1 BLOCK PER HOUR
 // ----------------------
@@ -40,7 +32,7 @@ function displayNew() {
   for (var i = 0; i < taskList.taskBlocks.length; i++) {
     var blockLabel = $("<label></label>");
     $(blockLabel).html(taskList.taskBlocks[i]);
-    // Creates block w/ ID's set to military time equivalent.
+    // Creates block w/ ID's set to the equivalent military time.
     var newBlock = $(`<div id="${[i + 9]+":00"}" class="block">`);
     $(container).append(blockLabel);
     $(container).append(newBlock);
@@ -55,17 +47,21 @@ function displayNew() {
   console.log("blocks = created");
 };
 
+
+// localStorage item name = "Schedule"
 function checkForSaved() {
   console.log("Checking storage for existing schedule.")
   var savedSchedule = JSON.parse(localStorage.getItem("schedule"));
   if (savedSchedule == null) {
-    console.log("No saved schedules. Loading empty schedule.")
-    displayNew()
+    console.log("No saved schedules. Loading empty schedule.");
+    displayNew();
   } else {
-    console.log("Loading saved schedule.")
-    displaySaved()
+    console.log("Loading saved schedule.");
+    displaySaved();
   }
 };
+
+
 
 
 // CLICKING TIMEBLOCK ALLOWS FOR USER INPUT OF A CALENDAR EVENT
@@ -77,6 +73,11 @@ function checkForSaved() {
 //   // 2. Define Boostrap modal and provide the required inputs.
 //   var modal = $("#myModal").dialog();
 // };
+
+// Functions running on load
+displayDay();
+checkForSaved();
+
 
 
 // 1. Add click event to timeblock.
