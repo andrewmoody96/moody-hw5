@@ -15,6 +15,7 @@ function displayDay() {
 
 function displayNew() {
   $(".container").empty();
+
   taskList = {
     taskBlocks: [
       { time: "9:00 AM", content: "" },
@@ -31,15 +32,16 @@ function displayNew() {
   taskList.taskBlocks.forEach((taskBlock) => {
     var hour = taskBlock.time;
     var blockContainer = $("<div>")
-      .addClass("time-row")
+      .addClass("row timeBlock")
       .attr("id", taskBlock.time)
       .appendTo(container);
     $("<div>")
       .addClass(
-        "hour d-flex justify-content-center align-items-center text-center col-1"
+        "d-flex justify-content-center align-items-center text-center col-1 hour"
       )
       .text(hour)
       .appendTo(blockContainer);
+    var taskText = $("<textarea readonly>").val(taskBlock.content).addClass("col-9").appendTo(blockContainer);
     var deleteBtn = $("<button>")
       .addClass("deleteButton")
       .appendTo(blockContainer);
@@ -86,8 +88,13 @@ displayDay();
 checkForSaved();
 
 // 1. Add click event to timeblock.
+$(".time-row").on("click", function(event) {
+  console.log("Displaying input fields.")
+  // displayModal();
+});
+
 // 3. On click, display the jQuery modal to collect user inputs.
-$(".container").on("click", "button", function (event) {
+$(".container").on("click", "button", function(event) {
   if ($(event.currentTarget).hasClass("saveButton")) {
     saveEvent(event);
   }
