@@ -10,9 +10,6 @@ function displayDay() {
   $(dayContainer).html(`Today is ${currentDay}`);
 }
 
-// DISPLAY TIMEBLOCKS FOR BIZ HOURS (9A-5P). 1 BLOCK PER HOUR
-// ----------------------
-
 function displayNew() {
   $(".container").empty();
 
@@ -50,18 +47,48 @@ function displayNew() {
       .appendTo(blockContainer);
   });
 
-  // REPLACING WITH A TEXT SECTION INSIDE OF MY BLOCKS THAT SHOWS THE TIME
-  // $(container).append(blockLabel);
-  // $(container).append(newBlock);
-  // // Applies default styling to new HTML elements.
-  // $(".block").css({
-  //   height: "50px",
-  //   width: "85vw",
-  //   margin: "10px 10px",
-  //   "background-color": "grey",
-  // });
-  // }
-  console.log("blocks = created");
+  console.log("Timeblocks Created");
+}
+
+// LOAD SAVED SCHEDULE --- COME BACK TO THIS
+function displaySaved() {
+  $(".container").empty();
+
+  taskList = {
+    taskBlocks: [
+      { time: "9:00 AM", content: "" },
+      { time: "10:00 AM", content: "" },
+      { time: "11:00 AM", content: "" },
+      { time: "12:00 PM", content: "" },
+      { time: "1:00 PM", content: "" },
+      { time: "2:00 PM", content: "" },
+      { time: "3:00 PM", content: "" },
+      { time: "4:00 PM", content: "" },
+    ],
+  };
+
+  taskList.taskBlocks.forEach((taskBlock) => {
+    var hour = taskBlock.time;
+    var blockContainer = $("<div>")
+      .addClass("row timeBlock")
+      .attr("id", taskBlock.time)
+      .appendTo(container);
+    $("<div>")
+      .addClass(
+        "d-flex justify-content-center align-items-center text-center col-1 hour"
+      )
+      .text(hour)
+      .appendTo(blockContainer);
+    var taskText = $("<textarea readonly>")
+      .val(taskBlock.content)
+      .addClass("col-9")
+      .appendTo(blockContainer);
+    var deleteBtn = $("<button>")
+      .addClass("deleteButton")
+      .appendTo(blockContainer);
+  });
+
+  console.log("Timeblocks Created");
 }
 
 // localStorage item name = "Schedule"
@@ -77,14 +104,28 @@ function checkForSaved() {
   }
 }
 
-// CLICKING TIMEBLOCK ALLOWS FOR USER INPUT OF A CALENDAR EVENT
-// ----------------------
-
-// function displayModal(){
-//   console.log("Modal Test");
-//   // 2. Define Boostrap modal and provide the required inputs.
-//   var modal = $("#myModal").dialog();
-// };
+function displayModal() {
+  console.log("Displaying input fields.");
+  // 2. Define Boostrap modal and provide the required inputs.
+  var createModal = $(`<div class="modal" tabindex="-1" role="dialog">
+  <div id="taskModal" class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add A Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input id="taskInput" placeholder="Add event details here..."></input>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary saveButton">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>`);
+}
 
 // Functions running on load
 displayDay();
@@ -92,18 +133,18 @@ checkForSaved();
 
 // 1. Add click event to timeblock.
 $(".timeBlock").on("click", function (addTask) {
-  console.log("Displaying input fields.");
-  // displayModal(addTask);
+  displayModal(addTask);
 });
 
-$(".saveButton").on("click", function (saveTask) {
-  console.log("Task Saved");
-  saveTask.stopPropagation();
+$(".saveButton").on("click", function (save) {
+  console.log("Saving Task...");
+  save.stopPropagation();
+  // saveTask(save);
 });
 
 // Click Event to Delete Tasks
 $(".deleteButton").on("click", function (del) {
-  console.log("Task Deleted");
+  console.log("Deleting Task...");
   del.stopPropagation();
   // deleteEvent(del);
 });
