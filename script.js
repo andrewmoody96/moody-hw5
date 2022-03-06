@@ -106,26 +106,30 @@ function checkForSaved() {
 
 function displayModal() {
   console.log("Displaying input fields.");
-  // 2. Define Boostrap modal and provide the required inputs.
-  var createModal = $(`<div class="modal" tabindex="-1" role="dialog">
-  <div id="taskModal" class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add A Task</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <input id="taskInput" placeholder="Add event details here..."></input>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary saveButton">Save changes</button>
+  var modal = $(`<div id="taskModal" class="modal" tabindex="-1" role="userinput">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add A Task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input id="taskInput" placeholder="Add event details here..."></input>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary saveButton">Save changes</button>
+        </div>
       </div>
     </div>
-  </div>
-</div>`);
-}
+  </div>`);
+
+  $(modal).modal();
+
+  // 2. Define Boostrap modal and provide the required inputs.
+  
+};
 
 // Functions running on load
 displayDay();
