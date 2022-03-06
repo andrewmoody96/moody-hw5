@@ -41,7 +41,10 @@ function displayNew() {
       )
       .text(hour)
       .appendTo(blockContainer);
-    var taskText = $("<textarea readonly>").val(taskBlock.content).addClass("col-9").appendTo(blockContainer);
+    var taskText = $("<textarea readonly>")
+      .val(taskBlock.content)
+      .addClass("col-9")
+      .appendTo(blockContainer);
     var deleteBtn = $("<button>")
       .addClass("deleteButton")
       .appendTo(blockContainer);
@@ -88,20 +91,21 @@ displayDay();
 checkForSaved();
 
 // 1. Add click event to timeblock.
-$(".time-row").on("click", function(event) {
-  console.log("Displaying input fields.")
-  // displayModal();
+$(".timeBlock").on("click", function (addTask) {
+  console.log("Displaying input fields.");
+  // displayModal(addTask);
 });
 
-// 3. On click, display the jQuery modal to collect user inputs.
-$(".container").on("click", "button", function(event) {
-  if ($(event.currentTarget).hasClass("saveButton")) {
-    saveEvent(event);
-  }
+$(".saveButton").on("click", function (saveTask) {
+  console.log("Task Saved");
+  saveTask.stopPropagation();
+});
 
-  if ($(event.currentTarget).hasClass("deleteButton")) {
-    deleteEvent(event);
-  }
+// Click Event to Delete Tasks
+$(".deleteButton").on("click", function (del) {
+  console.log("Task Deleted");
+  del.stopPropagation();
+  // deleteEvent(del);
 });
 
 // Clicking 'save' stores the text in local storage
