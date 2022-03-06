@@ -23,19 +23,6 @@ function displayDay() {
 function displayNew() {
   $(".container").empty();
 
-  // taskList = {
-  //   taskBlocks: [
-  //     { time: "9:00 AM", content: "" },
-  //     { time: "10:00 AM", content: "" },
-  //     { time: "11:00 AM", content: "" },
-  //     { time: "12:00 PM", content: "" },
-  //     { time: "1:00 PM", content: "" },
-  //     { time: "2:00 PM", content: "" },
-  //     { time: "3:00 PM", content: "" },
-  //     { time: "4:00 PM", content: "" },
-  //   ],
-  // };
-
   taskList.taskBlocks.forEach((taskBlock) => {
     var hour = taskBlock.time;
     var blockContainer = $("<div>")
@@ -48,10 +35,12 @@ function displayNew() {
       )
       .text(hour)
       .appendTo(blockContainer);
-    var taskText = $("<textarea readonly>")
+    var taskText = $("<ul>")
       .val(taskBlock.content)
-      .addClass("col-9")
+      .addClass("col-9 list")
       .appendTo(blockContainer);
+
+
     var deleteBtn = $("<button>")
       .addClass("deleteButton")
       .appendTo(blockContainer);
@@ -116,7 +105,7 @@ function checkForSaved() {
 
 function displayModal() {
   console.log("Displaying input fields.");
-  var modal = $(`<div id="taskModal" class="modal" tabindex="-1" role="userinput">
+  var modal = $(`<div id="taskModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -141,20 +130,31 @@ function displayModal() {
     console.log("Saving Task...");
     save.stopPropagation();
     saveTask(save);
-    $(modal).modal('toggle')
-
   });
+
+  function saveTask(e) {
+    e.preventDefault();
+    var clickedBlock = $(e.currentTarget);
+    // Print to UI
+    var userinput = $("#taskInput").val();
+    var li = $(`<li>${userinput}</li>`)
+    $(li).appendTo(".list").currentTarget;
+
+    // Ask a question about why the ; breaks the click event on line 154.
+    $(modal).modal('toggle')
+    $(clickedBlock).val(userinput);
+    console.log("Task Saved");
+    
+  
+    // Save to local storage
+    taskList.taskBlocks.forEach((taskBlock) => {
+      taskBlock.content = clickedBlock.siblings("textarea").val();
+      console.log(`${taskBlock.content}`)
+      });
+      localStorage.setItem("Tasks", JSON.stringify(taskList));
+  };
 };
 
-function saveTask(e) {
-  e.preventDefault();
-  console.log("Task Saved");
-  var clickedBlock = $(e.currentTarget);
-  taskList.taskBlocks.forEach((taskBlock) => {
-      console.log("Cool")
-      taskBlock.content = clickedBlock.siblings("textarea").val();
-    });
-};
 
 
 
