@@ -102,9 +102,21 @@ function checkForSaved() {
   }
 }
 
+function saveTask(e) {
+  e.preventDefault();
+  // Print to UI
+  var userinput = $("#taskInput").val();
+  var listItem = $("<li>");
+  $(listItem).text(userinput);
+  $(listItem).appendTo(".activeBlock");
+  $("#taskModal").modal("toggle");
+  console.log("Task Saved");
+};
+
+
 function displayModal() {
   console.log("Displaying input fields.");
-  var modal = $(`<div id="taskModal" class="modal" tabindex="-1" role="dialog">
+  var modal = $(`<div id="taskModal" class="modal" tabindex="-1" role="button">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -125,36 +137,20 @@ function displayModal() {
 
   $(modal).modal();
 
-  var clickedBlock = null;
-
   $("#saveButton").on("click", function (save) {
+    // save.preventDefault();
+    // save.stopPropagation();
     console.log("Saving Task...");
-    save.stopPropagation();
-    clickedBlock = $(save.currentTarget);
-    $(clickedBlock).addClass("activeBlock");
     saveTask(save);
   });
 
-  function saveTask(e) {
-    e.preventDefault();
-    // Print to UI
-    var userinput = $("#taskInput").val();
-    var listItem = $("<li>");
-    $(listItem).text(userinput);
-    $(listItem).appendTo(".activeBlock");
-
-    $(modal).modal("toggle");
-    console.log("Task Saved");
-    // $(clickedBlock).removeClass("activeBlock");
-
-    // // Save to local storage
-    // taskList.taskBlocks.forEach((taskBlock) => {
-    //   taskBlock.content = clickedBlock.siblings("li").val();
-    //   console.log(`${listItem.content}`)
-    //   });
-    //   localStorage.setItem("Tasks", JSON.stringify(taskList));
-  }
-}
+  // // Save to local storage
+  // taskList.taskBlocks.forEach((taskBlock) => {
+  //   taskBlock.content = clickedBlock.siblings("li").val();
+  //   console.log(`${listItem.content}`)
+  //   });
+  //   localStorage.setItem("Tasks", JSON.stringify(taskList));
+};
 
 // Functions running on load
 displayDay();
@@ -162,7 +158,12 @@ checkForSaved();
 
 // 1. Add click event to timeblock.
 $(".timeBlock").on("click", function (addTask) {
-  displayModal(addTask);
+  // Removes class from previously clicked block.
+  $(blocks).removeClass("activeBlock");
+  blocks = addTask.currentTarget;
+  // Addd class to newly clicked block.
+  $(blocks).addClass("activeBlock");
+  displayModal();
 });
 
 // $("#saveButton").on("click", function(save) {
@@ -177,13 +178,6 @@ $(".deleteButton").on("click", function (del) {
   del.stopPropagation();
   // deleteEvent(del);
 });
-
-// Clicking 'save' stores the text in local storage
-// ----------------------
-// 1. Create button inside of modal titled "save".
-// 2. Add click event to button.
-// 3. On click, save user input to local storage.
-// 4. On click, close the modal.
 
 // If app is refreshed, these events remain in place
 // ----------------------
