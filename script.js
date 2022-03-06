@@ -5,7 +5,6 @@ var blocks = $(".block");
 // empty taskList that gets added to.
 var taskList = {};
 
-
 function displayDay() {
   // 3. Inside of this function, add current day to p tag.
   $(dayContainer).html(`Today is ${currentDay}`);
@@ -18,22 +17,30 @@ function displayNew() {
   // 1. Loop to create timeblocks w/ class "block".
   taskList = {
     taskBlocks: [
-      {time: "9:00 AM", content:""},
-      {time: "10:00 AM", content:""},
-      {time: "11:00 AM", content:""},
-      {time: "12:00 PM", content:""},
-      {time: "1:00 PM", content:""},
-      {time: "2:00 PM", content:""},
-      {time: "3:00 PM", content:""},
-      {time: "4:00 PM", content:""}
-    ]
+      { time: "9:00 AM", content: "" },
+      { time: "10:00 AM", content: "" },
+      { time: "11:00 AM", content: "" },
+      { time: "12:00 PM", content: "" },
+      { time: "1:00 PM", content: "" },
+      { time: "2:00 PM", content: "" },
+      { time: "3:00 PM", content: "" },
+      { time: "4:00 PM", content: "" },
+    ],
   };
-  
+
   for (var i = 0; i < taskList.taskBlocks.length; i++) {
     var blockLabel = $("<label></label>");
-    $(blockLabel).html(taskList.taskBlocks[i]);
+    $(blockLabel).html(taskList.taskBlocks[i].time);
     // Creates block w/ ID's set to the equivalent military time.
-    var newBlock = $(`<div id="${[i + 9]+":00"}" class="block">`);
+    // var newBlock = $(`<div id="${[i + 9]+":00"}" class="block">`);
+    taskList.taskBlocks.forEach((taskBlock) => {
+      var hour = taskBlock.time;
+      var blockContainer = $("<div>")
+        .addClass("time-row")
+        .attr("id", taskBlock.time)
+        .appendTo(container);
+    });
+
     $(container).append(blockLabel);
     $(container).append(newBlock);
     // Applies default styling to new HTML elements.
@@ -45,12 +52,11 @@ function displayNew() {
     });
   }
   console.log("blocks = created");
-};
-
+}
 
 // localStorage item name = "Schedule"
 function checkForSaved() {
-  console.log("Checking storage for existing schedule.")
+  console.log("Checking storage for existing schedule.");
   var savedSchedule = JSON.parse(localStorage.getItem("schedule"));
   if (savedSchedule == null) {
     console.log("No saved schedules. Loading empty schedule.");
@@ -59,14 +65,10 @@ function checkForSaved() {
     console.log("Loading saved schedule.");
     displaySaved();
   }
-};
-
-
-
+}
 
 // CLICKING TIMEBLOCK ALLOWS FOR USER INPUT OF A CALENDAR EVENT
 // ----------------------
-
 
 // function displayModal(){
 //   console.log("Modal Test");
@@ -78,11 +80,9 @@ function checkForSaved() {
 displayDay();
 checkForSaved();
 
-
-
 // 1. Add click event to timeblock.
 // 3. On click, display the jQuery modal to collect user inputs.
-$(".container").on("click", "button", function(event){
+$(".container").on("click", "button", function (event) {
   if ($(event.currentTarget).hasClass("saveEventBtn")) {
     saveEvent(event);
   }
@@ -91,29 +91,6 @@ $(".container").on("click", "button", function(event){
     deleteEvent(event);
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Clicking 'save' stores the text in local storage
 // ----------------------
