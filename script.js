@@ -4,6 +4,7 @@ var container = $(".container");
 var blocks = $(".block");
 var list = $(".list");
 var userinput = null;
+var taskHour = 1;
 var taskList = {
   taskBlocks: [
     { time: "9:00 AM", content: "" },
@@ -45,7 +46,7 @@ function displayNew() {
 
     var deleteBtn = $("<button>")
       .addClass("deleteButton")
-      .text("Delete All")
+      .text("Delete")
       .appendTo(blockContainer);
   });
 
@@ -114,18 +115,21 @@ function saveTask(e) {
   console.log(userinput);
   list = $("div.activeBlock").find("ul");
   var task = $("<li>");
-  $(task).addClass("listItem");
+  $(task).addClass(`listItem`);
   task = $(task).text(userinput);
   $(task).appendTo(list);
   $("#taskModal").modal("toggle");
   $("#taskModal").remove();
   // return("Save Complete");
   // Save to local storage -- TRY SAVING EACH TASK TO SEPARATE ITEM
-  taskList.taskBlocks.forEach((taskBlock) => {
-    taskBlock.content = $;
-    console.log(`${JSON.stringify(task)}`);
-  });
-  localStorage.setItem("Tasks", JSON.stringify(taskList));
+
+    localStorage.setItem(`Task Block ${taskHour++}`, userinput);
+
+
+
+
+
+  // localStorage.setItem("Tasks", JSON.stringify(taskList));
 }
 
 function displayModal() {
