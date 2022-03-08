@@ -123,8 +123,7 @@ function saveTask(e) {
   // return("Save Complete");
   // Save to local storage -- TRY SAVING EACH TASK TO SEPARATE ITEM
 
-    localStorage.setItem(`Task Block ${taskHour++}`, userinput);
-
+  localStorage.setItem(`Task Block ${taskHour++}`, userinput);
 
 
 
