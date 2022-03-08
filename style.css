@@ -2,15 +2,20 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   line-height: 1;
+  background-color: lightblue;
 }
 
-textarea {
+ul {
   background: transparent;
   border: none;
   resize: none;
   color: #000000;
   border-left: 1px solid black;
   padding: 10px;
+}
+
+h1 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 /* Figure out how to center just these. bootstrap &or jQuery CSS may be causing this. */
@@ -42,9 +47,12 @@ textarea {
 }
 
 .hour {
-  background-color: #ffffff;
+  margin: 5px 5px;
+  background-color: #faebd7;
   color: #000000;
-  border-top: 1px dashed #000000;
+  width: auto;
+  border-left: 1px solid black;
+  border-radius: 15px;
 }
 
 .past {
@@ -73,4 +81,13 @@ textarea {
 .saveBtn i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
+}
+
+.deleteButton {
+  width: auto;
+  margin: 5px 5px;
+  border-left: 1px solid black;
+  border-radius: 15px;
+  background-color: red;
+  color: white;
 }

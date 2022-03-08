@@ -37,6 +37,7 @@ function displayNew() {
       )
       .text(hour)
       .appendTo(blockContainer);
+
     var taskText = $("<ul>")
       .val(taskBlock.content)
       .addClass("col-9 list")
@@ -44,6 +45,7 @@ function displayNew() {
 
     var deleteBtn = $("<button>")
       .addClass("deleteButton")
+      .text("Delete All")
       .appendTo(blockContainer);
   });
 
@@ -102,9 +104,7 @@ function checkForSaved() {
     console.log("Loading saved schedule.");
     displaySaved();
   }
-};
-
-
+}
 
 // ISSUE - Modal stops toggling after saving the fist event. Will not return current input value either.
 function saveTask(e) {
@@ -112,7 +112,7 @@ function saveTask(e) {
   // Print to UI
   userinput = $("#taskInput").val();
   console.log(userinput);
-  list = $("div.activeBlock").find("ul")
+  list = $("div.activeBlock").find("ul");
   var task = $("<li>");
   $(task).addClass("listItem");
   task = $(task).text(userinput);
@@ -122,12 +122,11 @@ function saveTask(e) {
   // return("Save Complete");
   // Save to local storage -- TRY SAVING EACH TASK TO SEPARATE ITEM
   taskList.taskBlocks.forEach((taskBlock) => {
-    taskBlock.content = $
-    console.log(`${JSON.stringify(task)}`)
-    });
-    localStorage.setItem("Tasks", JSON.stringify(taskList));
-};
-
+    taskBlock.content = $;
+    console.log(`${JSON.stringify(task)}`);
+  });
+  localStorage.setItem("Tasks", JSON.stringify(taskList));
+}
 
 function displayModal() {
   console.log("Displaying input fields.");
@@ -149,10 +148,10 @@ function displayModal() {
       </div>
     </div>
   </div>`);
-  
+
   $(modal).appendTo(".container");
   $(modal).modal();
-};
+}
 
 // Functions running on load
 displayDay();
@@ -181,9 +180,6 @@ $(".deleteButton").on("click", function (del) {
   del.stopPropagation();
   // deleteEvent(del);
 });
-
-
-
 
 // If app is refreshed, these events remain in place
 // ----------------------
