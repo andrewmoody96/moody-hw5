@@ -4,7 +4,7 @@ var container = $(".container");
 var blocks = $(".block");
 var list = $(".list");
 var userinput = null;
-taskList = {
+var taskList = {
   taskBlocks: [
     { time: "9:00 AM", content: "" },
     { time: "10:00 AM", content: "" },
@@ -102,26 +102,36 @@ function checkForSaved() {
     console.log("Loading saved schedule.");
     displaySaved();
   }
-}
-
-function saveTask(e) {
-  e.stopPropagation();
-  // Print to UI
-  userinput = $("#taskInput").val();
-  list = $("div.activeBlock").find("ul")
-  var listItem = $("<li>");
-  $(listItem).text(userinput);
-  $(listItem).appendTo(list);
-  $("#taskModal").modal("toggle");
-  console.log("Task Saved");
-  // return(userinput);
 };
 
 
 
+// ISSUE - Modal stops toggling after saving the fist event. Will not return current input value either.
+function saveTask(e) {
+  e.stopPropagation();
+  // Print to UI
+  userinput = $("#taskInput").val();
+  console.log(userinput);
+  list = $("div.activeBlock").find("ul")
+  var task = $("<li>");
+  $(task).addClass("listItem");
+  task = $(task).text(userinput);
+  $(task).appendTo(list);
+  $("#taskModal").modal("toggle");
+  $("#taskModal").remove();
+  // return("Save Complete");
+  // Save to local storage -- TRY SAVING EACH TASK TO SEPARATE ITEM
+  taskList.taskBlocks.forEach((taskBlock) => {
+    taskBlock.content = $
+    console.log(`${JSON.stringify(task)}`)
+    });
+    localStorage.setItem("Tasks", JSON.stringify(taskList));
+};
+
+
 function displayModal() {
   console.log("Displaying input fields.");
-  var modal = $(`<div id="taskModal" class="modal" tabindex="-1" role="button">
+  var modal = $(`<div id="taskModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -142,15 +152,6 @@ function displayModal() {
   
   $(modal).appendTo(".container");
   $(modal).modal();
-
-  
-
-  // // Save to local storage
-  // taskList.taskBlocks.forEach((taskBlock) => {
-  //   taskBlock.content = clickedBlock.siblings("li").val();
-  //   console.log(`${listItem.content}`)
-  //   });
-  //   localStorage.setItem("Tasks", JSON.stringify(taskList));
 };
 
 // Functions running on load
@@ -167,11 +168,12 @@ $(".timeBlock").on("click", function (addTask) {
   displayModal();
 });
 
-// $("#saveButton").on("click", function(save) {
-//   console.log("Saving Task...");
-//   save.stopPropagation();
-//   saveTask(save);
-// });
+// Click Event to Save Tasks
+$(".container").on("click", "#saveButton", function (save) {
+  save.stopPropagation();
+  console.log("Saving Task...");
+  saveTask(save);
+});
 
 // Click Event to Delete Tasks
 $(".deleteButton").on("click", function (del) {
@@ -180,12 +182,7 @@ $(".deleteButton").on("click", function (del) {
   // deleteEvent(del);
 });
 
-$(".container").on("click", "#saveButton", function (save) {
-  // save.preventDefault();
-  save.stopPropagation();
-  console.log("Saving Task...");
-  saveTask(save);
-});
+
 
 
 // If app is refreshed, these events remain in place
